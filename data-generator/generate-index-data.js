@@ -11,8 +11,8 @@
 const { Client } = require('@elastic/elasticsearch');
 
 // Replace with your Elasticsearch endpoint and index name
-// const ELASTICSEARCH_NODE = 'https://ec2-34-235-138-126.compute-1.amazonaws.com:9200';
-const ELASTICSEARCH_NODE = 'https://localhost:9200';
+// const ELASTICSEARCH_NODE = 
+const ELASTICSEARCH_NODE = process.env.ES_URL;
 
 // small
 // const ACCOUNTS_INDEX_NAME = '2sml_benchmark-accounts-domain';

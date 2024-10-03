@@ -17,7 +17,7 @@ const POSITIONS_SUPERINDEX_NAME = '1lg_benchmark_supidx_position';
 // large dataset
 const PREDICATE_BUSINESSYSTEMCODE = 'system_822';
 
-const ELASTICSEARCH_NODE = 'https://localhost:9200';
+const ELASTICSEARCH_NODE = process.env.ES_URL;
 
 const FETCH_SIZE = 10000;
 

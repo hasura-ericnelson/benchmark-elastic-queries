@@ -1,3 +1,15 @@
+/**
+ * 
+ * 
+ * 
+ * 
+ *     YOU PROBABLY DONT WANT THIS SCRIPT
+ * 
+ * batching will have an impact on fetch latency.  I'm keeping it here for reference purposes
+ * 
+ * 
+ * 
+ */
 const { Client } = require('@elastic/elasticsearch');
 
 
@@ -7,7 +19,7 @@ const POSITIONS_SUPERINDEX_NAME = '2sml_benchmark_supidx_position';
 // Shoudl be something like 'system_514 or system_133'
 const PREDICATE_BUSINESSYSTEMCODE = 'system_163';
 
-const ELASTICSEARCH_NODE = 'https://localhost:9200';
+const ELASTICSEARCH_NODE = process.env.ES_URL;
 const FETCH_BATCH_SIZE = 10000;
 const ES_SCROLL_TIMEOUT = '2m'
 const POSITION_BATCH_SIZE = FETCH_BATCH_SIZE;
