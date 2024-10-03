@@ -9,6 +9,17 @@
 */
 
 const { Client } = require('@elastic/elasticsearch');
+// Constants
+const TOTAL_DOCS = 1000000; //1 million
+const NUM_ACCOUNTS = 10000;
+const NUM_POSITIONS = 15000;
+const NUM_DATES = 365;
+const NUM_INSTRUMENTS = 100;
+const MIN_POSITIONS_PER_ACCOUNT = 2000;
+const MAX_POSITIONS_PER_ACCOUNT = 5000;
+
+const BATCH_SIZE = 2000;
+const MAX_CONCURRENT_BATCHES = 5;
 
 // Replace with your Elasticsearch endpoint and index name
 // const ELASTICSEARCH_NODE = 
@@ -44,17 +55,6 @@ const superindexClient = new Client({
   },
 });
 
-// Constants
-const TOTAL_DOCS = 1000000; //1 million
-const NUM_ACCOUNTS = 10000;
-const NUM_POSITIONS = 15000;
-const NUM_DATES = 365;
-const NUM_INSTRUMENTS = 100;
-const MIN_POSITIONS_PER_ACCOUNT = 2000;
-const MAX_POSITIONS_PER_ACCOUNT = 5000;
-
-const BATCH_SIZE = 2000;
-const MAX_CONCURRENT_BATCHES = 5;
 
 // Helper functions
 function randomDate(start, end) {

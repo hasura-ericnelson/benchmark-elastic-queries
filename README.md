@@ -9,6 +9,13 @@ The goal is to compare the performance and efficiency of these two approaches, e
 
 ---
 
+## tldr;
+
+1. `git clone git@github.com:hasura-ericnelson/benchmark-elastic-queries.git`
+2. `cd benchmark-elastic-queries`
+3. `pnpm i`
+4. `ES_USERNAME=<username> ES_PASSWORD=<password> ES_URL="https://localhost:9200" node 2-query-benchmarks-paginate.js`
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
@@ -91,10 +98,12 @@ By timing these operations, the script provides insights into the performance di
 
 ### Generating Sample Data
 
+Edit the contstants in `data-generator/generate-index-data.js` as needed
+
 To generate and insert sample data into Elasticsearch:
 
 ```
-ES_USERNAME=<username> ES_PASSWORD=<password> ES_URL="https://localhost:9200" node generate-index-data.js
+ES_USERNAME=<username> ES_PASSWORD=<password> ES_URL="https://localhost:9200" node data-generator/generate-index-data.js
 ```
 
 Replace `<username>`, `<password>`, and the URL with your Elasticsearch credentials and endpoint.
