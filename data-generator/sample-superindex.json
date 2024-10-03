@@ -1,0 +1,59 @@
+{
+  "Account": {
+    "accountId": "account_5",
+    "businessSystemCode": "system_822",
+    "accountType": "type_90",
+    "status": "status_52"
+  },
+  "Position": {
+    "accountId": "account_5",
+    "positionId": "position_5",
+    "businessSystemCode": "system_822",
+    "positionDate": "2022-12-17",
+    "instrumentId": "instrument_45",
+    "positionCcy": "ccy_37",
+    "subledgerCode": "subledger_43",
+    "Instrument": {
+      "instrumentId": "instrument_45",
+      "businessSystemCode": "system_822"
+    },
+    "InstrumentClassifications": {
+      "instrumentId": "instrument_45",
+      "businessSystemCode": "system_822",
+      "clasificationLevel1": "class_13",
+      "clasificationLevel2": "class_70",
+      "clasificationLevel3": "class_34"
+    },
+    "InstrumentPrice": {
+      "instrumentId": "instrument_45",
+      "businessSystemCode": "system_822",
+      "date": "2022-12-17",
+      "currency": "currency_96",
+      "price": 874.65
+    },
+    "Taxlot": {
+      "accountId": "account_5",
+      "instrumentCd": "instrument_45",
+      "businessSystemCode": "system_822",
+      "postedDate": "2022-12-17"
+    },
+    "Transaction": {
+      "accountId": "account_5",
+      "instrumentCd": "instrument_45",
+      "businessSystemCode": "system_822",
+      "transactionTimeStamp": "2024-10-02T21:37:18.736Z"
+    }
+  },
+  "Party": {
+    "accountId": "account_5",
+    "businessSystemCode": "system_822",
+    "status": "status_39"
+  },
+  "Instrument": {
+    "instrumentId": "instrument_45",
+    "businessSystemCode": "system_822",
+    "clasificationLevel1": "class_58",
+    "clasificationLevel2": "class_52",
+    "clasificationLevel3": "class_69"
+  }
+}
