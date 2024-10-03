@@ -1,4 +1,4 @@
-# Run with Elasticsearch server at https://localhost:9092 on EC2-t3.micro with Positions SuperIndex and Account Domain Index both have 1,000,000 documents (see README.md for sample document structure)
+# Run with Elasticsearch server at https://localhost:9092 on EC2-t3.micro with 1,000,000 documents in each index (see README.md for sample document structure)
 
 Query 1 - Fetch Account IDs matching Account.businessSystemCode==system_822 from PositionsSuperIndex
 query1|Fetched 998 account IDs so far...
