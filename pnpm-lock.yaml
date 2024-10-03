@@ -1,0 +1,90 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@elastic/elasticsearch':
+        specifier: ^8.15.0
+        version: 8.15.0
+
+packages:
+
+  '@elastic/elasticsearch@8.15.0':
+    resolution: {integrity: sha512-mG90EMdTDoT6GFSdqpUAhWK9LGuiJo6tOWqs0Usd/t15mPQDj7ZqHXfCBqNkASZpwPZpbAYVjd57S6nbUBINCg==}
+    engines: {node: '>=18'}
+
+  '@elastic/transport@8.8.1':
+    resolution: {integrity: sha512-4RQIiChwNIx3B0O+2JdmTq/Qobj6+1g2RQnSv1gt4V2SVfAYjGwOKu0ZMKEHQOXYNG6+j/Chero2G9k3/wXLEw==}
+    engines: {node: '>=18'}
+
+  '@opentelemetry/api@1.9.0':
+    resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
+    engines: {node: '>=8.0.0'}
+
+  debug@4.3.7:
+    resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
+  hpagent@1.2.0:
+    resolution: {integrity: sha512-A91dYTeIB6NoXG+PxTQpCCDDnfHsW9kc06Lvpu1TEe9gnd6ZFeiBoRO9JvzEv6xK7EX97/dUE8g/vBMTqTS3CA==}
+    engines: {node: '>=14'}
+
+  ms@2.1.3:
+    resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+
+  secure-json-parse@2.7.0:
+    resolution: {integrity: sha512-6aU+Rwsezw7VR8/nyvKTx8QpWH9FrcYiXXlqC4z5d5XQBDRqtbfsRjnwGyqbi3gddNtWHuEk9OANUotL26qKUw==}
+
+  tslib@2.7.0:
+    resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
+
+  undici@6.19.8:
+    resolution: {integrity: sha512-U8uCCl2x9TK3WANvmBavymRzxbfFYG+tAu+fgx3zxQy3qdagQqBLwJVrdyO1TBfUXvfKveMKJZhpvUYoOjM+4g==}
+    engines: {node: '>=18.17'}
+
+snapshots:
+
+  '@elastic/elasticsearch@8.15.0':
+    dependencies:
+      '@elastic/transport': 8.8.1
+      tslib: 2.7.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@elastic/transport@8.8.1':
+    dependencies:
+      '@opentelemetry/api': 1.9.0
+      debug: 4.3.7
+      hpagent: 1.2.0
+      ms: 2.1.3
+      secure-json-parse: 2.7.0
+      tslib: 2.7.0
+      undici: 6.19.8
+    transitivePeerDependencies:
+      - supports-color
+
+  '@opentelemetry/api@1.9.0': {}
+
+  debug@4.3.7:
+    dependencies:
+      ms: 2.1.3
+
+  hpagent@1.2.0: {}
+
+  ms@2.1.3: {}
+
+  secure-json-parse@2.7.0: {}
+
+  tslib@2.7.0: {}
+
+  undici@6.19.8: {}
