@@ -17,7 +17,7 @@ const POSITIONS_SUPERINDEX_NAME = '1lg_benchmark_supidx_position';
 // large dataset
 const PREDICATE_BUSINESSYSTEMCODE = 'system_822';
 
-const ELASTICSEARCH_NODE = process.env.ES_URL;
+const ELASTICSEARCH_NODE = 'https://localhost:9200';// process.env.ES_URL;
 
 const FETCH_SIZE = 10000;
 
@@ -37,83 +37,44 @@ const client = new Client({
 
 
 // select accountIds only from Superindex
-async function query1FetchActIdsFromSuperIndex(predicate) {
-  console.time(`query1|Fetch unique Account IDs matching predicate from PositionsSuperIndex TOTAL TIME:`); // Start timer
-  console.log(`Query 1 - Fetch unique Account IDs matching Account.businessSystemCode == ${predicate} from PositionsSuperIndex`);
+async function query1FetchUniqueAccountIdsWithTermsAgg(predicate) {
+  console.time(`query1|Fetch unique Account IDs using terms aggregation`);
+  console.log(`Query 1 - Fetch unique Account IDs where Account.businessSystemCode == ${predicate} using terms aggregation from PositionsSuperIndex`);
 
   try {
-    const accountIdsSet = new Set(); // Use a Set to store unique accountIds
-    const sortField = '_doc'; // Use _doc for efficient sorting
-    let searchAfter = null;
-    let totalFetched = 0;
-    let hasMore = true;
-
-    // Open a Point In Time (PIT)
-    const pitResponse = await client.openPointInTime({
+    const response = await client.search({
       index: POSITIONS_SUPERINDEX_NAME,
-      keep_alive: '2m',
-    });
-    const pitId = pitResponse.id;
-
-    while (hasMore) {
-      // Build the search parameters
-      const searchParams = {
-        body: {
-          size: FETCH_SIZE,
-          _source: ['Account.accountId'],
-          query: {
-            term: {
-              'Account.businessSystemCode': predicate,
-            },
-          },
-          sort: [{ [sortField]: 'asc' }],
-          pit: {
-            id: pitId,
-            keep_alive: '2m',
+      body: {
+        size: 0, // We don't need the actual documents
+        query: {
+          term: {
+            'Account.businessSystemCode': predicate,
           },
         },
-      };
+        aggs: {
+          unique_account_ids: {
+            terms: {
+              field: 'Account.accountId',
+              size: 10000, // Maximum allowed size for terms aggregation
+            },
+          },
+        },
+      },
+    });
 
-      // Include search_after only if it's not null
-      if (searchAfter) {
-        searchParams.body.search_after = searchAfter;
-      }
+    const buckets = response.aggregations.unique_account_ids.buckets;
+    const accountIds = buckets.map(bucket => bucket.key);
 
-      const response = await client.search(searchParams);
-
-      const hits = response.hits.hits;
-      if (hits.length === 0) {
-        hasMore = false;
-        break;
-      }
-
-      totalFetched += hits.length;
-
-      // Add accountIds to the Set to ensure uniqueness
-      for (const hit of hits) {
-        const accountId = hit._source.Account.accountId;
-        accountIdsSet.add(accountId);
-      }
-
-      // Update searchAfter with the sort values of the last hit
-      searchAfter = hits[hits.length - 1].sort;
-
-      console.log(`query1|Fetched ${totalFetched} records so far. Unique account IDs collected: ${accountIdsSet.size}`);
-    }
-
-    // Close the PIT to free resources
-    await client.closePointInTime({ body: { id: pitId } });
-
-    const uniqueAccountIds = Array.from(accountIdsSet);
-    console.log('query1|Total unique Account IDs fetched:', uniqueAccountIds.length);
-    return uniqueAccountIds;
+    console.log('query1|Total unique Account IDs fetched:', accountIds.length);
+    return accountIds;
   } catch (error) {
-    console.error('***query1|Error fetching account IDs:', error);
+    console.error('***query1|Error fetching account IDs with aggregation:', error);
   } finally {
-    console.timeEnd(`query1|Fetch unique Account IDs matching predicate from PositionsSuperIndex TOTAL TIME:`);
+    console.timeEnd(`query1|Fetch unique Account IDs using terms aggregation`);
     console.log(`---------`);
   }
 }
+
 
 
 
@@ -307,7 +268,7 @@ async function main() {
   try {
     // Measure time for fetching account IDs
     const accountStart = Date.now();
-    const accountIdsFromPositionsSuperIndex = await query1FetchActIdsFromSuperIndex(PREDICATE_BUSINESSYSTEMCODE);
+    const accountIdsFromPositionsSuperIndex = await query1FetchUniqueAccountIdsWithTermsAgg(PREDICATE_BUSINESSYSTEMCODE);
     const accountEnd = Date.now();
 
     // Measure time for fetching position IDs
